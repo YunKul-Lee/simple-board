@@ -9,5 +9,4 @@ class SimpleBoardApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
