@@ -10,3 +10,8 @@
 * Swagger
 * kotest
 
+#### MYSQL 환경구성
+```shell
+# Start Mysql use Docker
+docker run --name simple-board-mysql -e MYSQL_ROOT_PASSWORD=1234 -p 3306:3306 -d mysql:8.0.32
+```
