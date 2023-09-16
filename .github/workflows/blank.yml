@@ -21,8 +21,8 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '17'
-        disribution: 'zulu'
-        
+        distribution: 'zulu'
+
     - name: Build with Gradle
       run: ./gradlew clean build
 
@@ -47,6 +47,6 @@ jobs:
         region: ${{ env.AWS_REGION }}
         application_name: simple-board
         environment_name: Simple-board-env
-        version_lable: github-action-${{steps.current-time.outputs.formattedTime}}
+        version_label: github-action-${{steps.current-time.outputs.formattedTime}}
         deployment_package: deploy/deploy.zip
-        
+
