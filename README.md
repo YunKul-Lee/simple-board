@@ -15,3 +15,6 @@
 # Start Mysql use Docker
 docker run --name simple-board-mysql -e MYSQL_ROOT_PASSWORD=1234 -p 3306:3306 -d mysql:8.0.32
 ```
+
+#### 배포환경 구성
+github actions를 이용한 aws 배포환경 구성
