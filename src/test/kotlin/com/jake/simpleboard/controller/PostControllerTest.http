@@ -20,3 +20,10 @@ Content-Type: application/json
 
 ### 게시글 삭제
 DELETE /localhost:8080/posts/1?createdBy=jake
+
+
+### 게시글 상세조회
+GET /localhost:8080/posts/1
+
+### 게시글 목록 조회
+GET /localhost:8080/posts?page=0&size=10&title=title&createdBy=jake
