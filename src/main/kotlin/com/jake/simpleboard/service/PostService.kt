@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class PostService(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
 ) {
 
     @Transactional
@@ -32,9 +32,9 @@ class PostService(
     @Transactional
     fun deletePost(id: Long, deletedBy: String): Long {
         val post: Post = postRepository.findByIdOrNull(id) ?: throw PostNotFoundException()
-        if(post.createdBy != deletedBy) throw PostNotDeletableException()
+        if (post.createdBy != deletedBy) throw PostNotDeletableException()
         postRepository.delete(post)
 
-        return id;
+        return id
     }
 }
