@@ -5,8 +5,15 @@ import com.jake.simpleboard.exception.PostNotDeletableException
 import com.jake.simpleboard.exception.PostNotFoundException
 import com.jake.simpleboard.repository.PostRepository
 import com.jake.simpleboard.service.dto.PostCreateRequestDto
+import com.jake.simpleboard.service.dto.PostDetailResponseDto
+import com.jake.simpleboard.service.dto.PostSearchRequestDto
+import com.jake.simpleboard.service.dto.PostSummaryResponseDto
 import com.jake.simpleboard.service.dto.PostUpdateRequestDto
+import com.jake.simpleboard.service.dto.toDetailResponseDto
 import com.jake.simpleboard.service.dto.toEntity
+import com.jake.simpleboard.service.dto.toSummaryResponseDto
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -36,5 +43,13 @@ class PostService(
         postRepository.delete(post)
 
         return id
+    }
+
+    fun getPost(id: Long): PostDetailResponseDto {
+        return postRepository.findByIdOrNull(id)?.toDetailResponseDto() ?: throw PostNotFoundException()
+    }
+
+    fun findPageBy(pageRequest: Pageable, postSearchRequestDto: PostSearchRequestDto): Page<PostSummaryResponseDto> {
+        return postRepository.findPageBy(pageRequest, postSearchRequestDto).toSummaryResponseDto()
     }
 }
