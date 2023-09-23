@@ -34,6 +34,6 @@ class Post(
         }
         this.title = postUpdateRequestDto.title
         this.content = postUpdateRequestDto.content
-        super.updateBy(postUpdateRequestDto.updatedBy)
+        super.updatedBy(postUpdateRequestDto.updatedBy)
     }
 }
