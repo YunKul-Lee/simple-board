@@ -1,6 +1,5 @@
 package com.jake.simpleboard.service.dto
 
-import com.jake.simpleboard.controller.dto.CommentResponse
 import com.jake.simpleboard.domain.Comment
 
 data class CommentResponseDto(
