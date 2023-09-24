@@ -1,11 +1,14 @@
 package com.jake.simpleboard.service
 
+import com.jake.simpleboard.domain.Comment
 import com.jake.simpleboard.domain.Post
 import com.jake.simpleboard.exception.PostNotDeletableException
 import com.jake.simpleboard.exception.PostNotFoundException
 import com.jake.simpleboard.exception.PostNotUpdatableException
+import com.jake.simpleboard.repository.CommentRepository
 import com.jake.simpleboard.repository.PostRepository
 import com.jake.simpleboard.service.dto.PostCreateRequestDto
+import com.jake.simpleboard.service.dto.PostDetailResponseDto
 import com.jake.simpleboard.service.dto.PostSearchRequestDto
 import com.jake.simpleboard.service.dto.PostUpdateRequestDto
 import io.kotest.assertions.throwables.shouldThrow
@@ -23,6 +26,7 @@ import org.springframework.data.repository.findByIdOrNull
 class PostServiceTest(
     private val postService: PostService,
     private val postRepository: PostRepository,
+    private val commentRepository: CommentRepository,
 ) : BehaviorSpec({
     beforeSpec {
         postRepository.saveAll(
@@ -151,6 +155,24 @@ class PostServiceTest(
                 shouldThrow<PostNotFoundException> {
                     postService.getPost(9999L)
                 }
+            }
+        }
+
+        When("댓글 추가시") {
+            commentRepository.save(Comment(content = "댓글 내용1", post = saved, createdBy = "댓글 작성자"))
+            commentRepository.save(Comment(content = "댓글 내용2", post = saved, createdBy = "댓글 작성자"))
+            commentRepository.save(Comment(content = "댓글 내용3", post = saved, createdBy = "댓글 작성자"))
+
+            val post: PostDetailResponseDto = postService.getPost(saved.id)
+            then("댓글이 함께 조회됨을 확인한다.") {
+                post.comments.size shouldBe 3
+                post.comments[0].content shouldBe "댓글 내용1"
+                post.comments[1].content shouldBe "댓글 내용2"
+                post.comments[2].content shouldBe "댓글 내용3"
+
+                post.comments[0].createdBy shouldBe "댓글 작성자"
+                post.comments[1].createdBy shouldBe "댓글 작성자"
+                post.comments[2].createdBy shouldBe "댓글 작성자"
             }
         }
     }
