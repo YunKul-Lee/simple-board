@@ -34,16 +34,16 @@ class PostServiceTest(
     beforeSpec {
         postRepository.saveAll(
             listOf(
-                Post(title = "title1", content = "content1", createdBy = "jake1"  , tags = listOf("tag1", "tag2")  ),
-                Post(title = "title12", content = "content2", createdBy = "jake1" , tags = listOf("tag1", "tag2")  ),
-                Post(title = "title13", content = "content3", createdBy = "jake1" , tags = listOf("tag1", "tag2")  ),
-                Post(title = "title14", content = "content4", createdBy = "jake1" , tags = listOf("tag1", "tag2")  ),
-                Post(title = "title15", content = "content5", createdBy = "jake1" , tags = listOf("tag1", "tag2")  ),
-                Post(title = "title6", content = "content6", createdBy = "jake2"  , tags = listOf("tag1", "tag5")  ),
-                Post(title = "title7", content = "content7", createdBy = "jake2"  , tags = listOf("tag1", "tag5")  ),
-                Post(title = "title8", content = "content8", createdBy = "jake2"  , tags = listOf("tag1", "tag5")  ),
-                Post(title = "title9", content = "content9", createdBy = "jake2"  , tags = listOf("tag1", "tag5")  ),
-                Post(title = "title10", content = "content10", createdBy = "jake2", tags = listOf("tag1", "tag5")  ),
+                Post(title = "title1", content = "content1", createdBy = "jake1", tags = listOf("tag1", "tag2")),
+                Post(title = "title12", content = "content2", createdBy = "jake1", tags = listOf("tag1", "tag2")),
+                Post(title = "title13", content = "content3", createdBy = "jake1", tags = listOf("tag1", "tag2")),
+                Post(title = "title14", content = "content4", createdBy = "jake1", tags = listOf("tag1", "tag2")),
+                Post(title = "title15", content = "content5", createdBy = "jake1", tags = listOf("tag1", "tag2")),
+                Post(title = "title6", content = "content6", createdBy = "jake2", tags = listOf("tag1", "tag5")),
+                Post(title = "title7", content = "content7", createdBy = "jake2", tags = listOf("tag1", "tag5")),
+                Post(title = "title8", content = "content8", createdBy = "jake2", tags = listOf("tag1", "tag5")),
+                Post(title = "title9", content = "content9", createdBy = "jake2", tags = listOf("tag1", "tag5")),
+                Post(title = "title10", content = "content10", createdBy = "jake2", tags = listOf("tag1", "tag5"))
             )
         )
     }
@@ -196,7 +196,7 @@ class PostServiceTest(
             listOf(
                 Tag(name = "tag1", post = saved, createdBy = saved.createdBy),
                 Tag(name = "tag2", post = saved, createdBy = saved.createdBy),
-                Tag(name = "tag3", post = saved, createdBy = saved.createdBy),
+                Tag(name = "tag3", post = saved, createdBy = saved.createdBy)
             )
         )
         When("정상 조회시") {
@@ -292,6 +292,5 @@ class PostServiceTest(
                 postPage.content[4].title shouldBe "title6"
             }
         }
-
     }
 })
