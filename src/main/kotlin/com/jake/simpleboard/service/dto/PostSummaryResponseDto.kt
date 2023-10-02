@@ -10,6 +10,7 @@ data class PostSummaryResponseDto(
     val content: String,
     val createdBy: String,
     val createdAt: String,
+    val firstTag: String? = null,
 )
 
 fun Page<Post>.toSummaryResponseDto() = PageImpl(
@@ -23,5 +24,6 @@ fun Post.toSummaryResponseDto() = PostSummaryResponseDto(
     title = title,
     content = content,
     createdBy = createdBy,
-    createdAt = createdAt.toString()
+    createdAt = createdAt.toString(),
+    firstTag = tags.firstOrNull() ?.name,
 )

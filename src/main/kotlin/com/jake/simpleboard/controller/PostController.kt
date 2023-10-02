@@ -60,9 +60,7 @@ class PostController(
         pageable: Pageable,
         postSearchRequest: PostSearchRequest,
     ): Page<PostSummaryResponse> {
-        println("tag : ${postSearchRequest.tag}")
 
-//        return Page.empty()
         return postService.findPageBy(pageable, postSearchRequest.toDto()).toResponse()
     }
 }
