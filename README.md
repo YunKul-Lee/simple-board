@@ -18,3 +18,10 @@ docker run --name simple-board-mysql -e MYSQL_ROOT_PASSWORD=1234 -p 3306:3306 -d
 
 #### 배포환경 구성
 github actions를 이용한 aws 배포환경 구성
+
+#### 기능
+* 게시글 생성, 수정, 삭제
+* 게시글 조회 & 목록조회
+* 댓글 생성, 수정, 삭제
+* 태그 생성, 삭제
+* 좋아요
