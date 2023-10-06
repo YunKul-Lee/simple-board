@@ -4,6 +4,7 @@ import com.jake.simpleboard.domain.Post
 import com.jake.simpleboard.exception.PostNotDeletableException
 import com.jake.simpleboard.exception.PostNotFoundException
 import com.jake.simpleboard.repository.PostRepository
+import com.jake.simpleboard.repository.TagRepository
 import com.jake.simpleboard.service.dto.PostCreateRequestDto
 import com.jake.simpleboard.service.dto.PostDetailResponseDto
 import com.jake.simpleboard.service.dto.PostSearchRequestDto
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional
 class PostService(
     private val postRepository: PostRepository,
     private val likeService: LikeService,
+    private val tagRepository: TagRepository,
 ) {
 
     @Transactional
@@ -52,6 +54,9 @@ class PostService(
     }
 
     fun findPageBy(pageRequest: Pageable, postSearchRequestDto: PostSearchRequestDto): Page<PostSummaryResponseDto> {
+        postSearchRequestDto.tag?.let {
+            return tagRepository.findPageBy(pageRequest, it).toSummaryResponseDto(likeService::countLike)
+        }
         return postRepository.findPageBy(pageRequest, postSearchRequestDto)
             .toSummaryResponseDto(likeService::countLike)
     }
