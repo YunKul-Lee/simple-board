@@ -2,12 +2,7 @@ package com.jake.simpleboard.domain
 
 import com.jake.simpleboard.exception.CommentNotUpdatableException
 import com.jake.simpleboard.service.dto.CommentUpdateRequestDto
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 
 @Entity
 class Comment(
@@ -30,6 +25,7 @@ class Comment(
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     var post: Post = post
         protected set
 }

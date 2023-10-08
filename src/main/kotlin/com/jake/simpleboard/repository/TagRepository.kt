@@ -1,5 +1,6 @@
 package com.jake.simpleboard.repository
 
+import com.jake.simpleboard.domain.QPost.post
 import com.jake.simpleboard.domain.QTag.tag
 import com.jake.simpleboard.domain.Tag
 import org.springframework.data.domain.Page
@@ -21,7 +22,7 @@ class CustomTagRepositoryImpl : CustomTagRepository, QuerydslRepositorySupport(T
 
     override fun findPageBy(pageRequest: Pageable, tagName: String): Page<Tag> {
         return from(tag)
-            .join(tag.post).fetchJoin()
+            .join(tag.post, post).fetchJoin()
             .where(tag.name.eq(tagName))
             .orderBy(tag.post.createdAt.desc())
             .offset(pageRequest.offset)
