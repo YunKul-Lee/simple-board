@@ -15,14 +15,15 @@ import com.jake.simpleboard.service.dto.PostSearchRequestDto
 import com.jake.simpleboard.service.dto.PostUpdateRequestDto
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.extensions.testcontainers.perSpec
 import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
-import org.h2.command.dml.MergeUsing.When
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
+import org.testcontainers.containers.GenericContainer
 
 @SpringBootTest
 class PostServiceTest(
@@ -32,7 +33,17 @@ class PostServiceTest(
     private val tagRepository: TagRepository,
     private val likeService: LikeService,
 ) : BehaviorSpec({
+    val redisContainer = GenericContainer<Nothing>("redis:5.0.3-alpine")
+
+    afterSpec {
+        redisContainer.stop()
+    }
+
     beforeSpec {
+        redisContainer.portBindings.add("16379:6379")
+        redisContainer.start()
+        listener(redisContainer.perSpec())
+
         postRepository.saveAll(
             listOf(
                 Post(title = "title1", content = "content1", createdBy = "jake1", tags = listOf("tag1", "tag2")),
